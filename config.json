@@ -7,7 +7,7 @@
 "languages": {"ca": "Català", "cs": "Čeština", "en": "English", "es": "Español", "es_mx": "Español - México", "eu": "Euskara", "fr" : "Français", "it": "Italiano", "hu": "magyar", "nl": "Nederlands", "sv": "Svenska"},
 "plugins" : ["notifications", "upload", "events", "contents", "participants", "addcontact", "addnote", "sendmessage"],
 "wsservice" : "moodle_mobile_app",
-"presets" : {"url": "", "username": ""},
+"presets" : {"url": "http://192.168.1.38/moodle26", "username": ""},
 "sync_ws_on" : true,
 "sync_lang_on" : true,
 "sync_css_on" : true,
