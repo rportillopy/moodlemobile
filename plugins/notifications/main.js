@@ -39,7 +39,7 @@ define(requires, function (notifsTpl, notifTpl, notifsEnableTpl, notifAlert) {
          * @return {bool} True if the plugin is visible for the site and device
          */
         isPluginVisible: function() {
-            var visible =   MM.deviceOS == 'ios' &&
+            var visible =   (MM.deviceOS == "ios" || MM.deviceOS == "android") &&
                             MM.util.wsAvailable('core_user_add_user_device') &&
                             MM.util.wsAvailable('message_airnotifier_is_system_configured') &&
                             MM.util.wsAvailable('message_airnotifier_are_notification_preferences_configured');
@@ -269,21 +269,49 @@ define(requires, function (notifsTpl, notifTpl, notifsEnableTpl, notifAlert) {
             }
         },
 
+        /**
+         * Register a device in Google GCM using the Phonegap PushPlugin
+         * It also register the device in the Moodle site using the core_user_add_user_device WebService
+         * We need the device registered in Moodle so we can connect the device with
+         * the message output Moode plugin airnotifier
+         *
+         * @param  {function} successCallback Callback for win
+         * @param  {function} errorCallback   Callback for fail
+         */
+        registerDeviceGCM: function(successCallback, errorCallback) {
+
+            var pushNotification = window.plugins.pushNotification;
+
+            pushNotification.register(
+                function(result) {
+                    MM.log("Device connected with GCM: " + result, "Notifications");
+                },
+
+                function(error) {
+                    errorCallback(MM.lang.s("errorduringdevicetokenrequest"));
+                    MM.log("Error during device token request: " + error, "Notifications");
+                },
+
+                {
+                    "senderID": MM.config.gcmpn,
+                    "ecb":"MM.plugins.notifications.GCMsaveAndDisplay"
+                }
+            );
+        },
 
         /**
          * Register a device in Apple APNS (Apple Push Notificaiton System) using the Phonegap PushPlugin
          * It also register the device in the Moodle site using the core_user_add_user_device WebService
          * We need the device registered in Moodle so we can connect the device with
-         * the message output Moode plugin: https://github.com/jleyva/moodle-message_airnotifier
-         *
-         * This function is called after the user clicks in the Enable Notifications button
+         * the message output Moode plugin airnotifier
          *
          * @param  {function} successCallback Callback for win
          * @param  {function} errorCallback   Callback for fail
          */
-        registerDevice: function(successCallback, errorCallback) {
-            // Request iOS Push Notification and retrieve device token
+        registerDeviceAPNS: function(successCallback, errorCallback) {
+
             var pushNotification = window.plugins.pushNotification;
+
             pushNotification.register(
                 function(token) {
                     // Save the device token setting
@@ -326,9 +354,147 @@ define(requires, function (notifsTpl, notifTpl, notifsEnableTpl, notifAlert) {
                     alert:"true",
                     badge:"true",
                     sound:"true",
-                    ecb: "MM.plugins.notifications.saveAndDisplay"
+                    ecb: "MM.plugins.notifications.APNSsaveAndDisplay"
                 }
             );
+
+        },
+
+
+        /**
+         * Register a device in Apple APNS or Google GCM
+         *
+         * @param  {function} successCallback Callback for win
+         * @param  {function} errorCallback   Callback for fail
+         */
+        registerDevice: function(successCallback, errorCallback) {
+            // Request iOS Push Notification and retrieve device token
+
+            if (!window.plugins || !window.plugins.pushNotification) {
+                errorCallback();
+                return;
+            }
+
+            if (MM.deviceOS == 'ios') {
+                MM.plugins.notifications.registerDeviceAPNS(successCallback, errorCallback);
+            } else if (MM.deviceOS == 'android') {
+                MM.plugins.notifications.registerDeviceGCM(successCallback, errorCallback);
+            }
+        },
+
+        /**
+         * This function is called from the PushPlugin when we receive a Notification from GCM
+         * The app can be in foreground or background,
+         * if we are in background this code is executed when we open the app clicking in the notification bar
+         * This code is never executed if the app is in the background (is frozen)
+         *
+         *
+         * @param  {object} event Notification payload
+         */
+        GCMsaveAndDisplay: function(e) {
+
+            MM.log("Push notification received, type: " + e.event, "Notifications");
+
+            switch (e.event) {
+                case 'registered':
+                    if ( e.regid.length > 0 ){
+                        MM.setConfig('gcm_device_token', e.regid);
+                        MM.log("Device registered in GCM: ..." + e.regid.substring(0, 3), "Notifications");
+
+                        if (typeof(device.name) == "undefined") {
+                            device.name = '';
+                        }
+
+                        var data = {
+                            appid:      MM.config.app_id,
+                            name:       device.name,
+                            model:      device.model,
+                            platform:   device.platform,
+                            version:    device.version,
+                            pushid:     e.regid,
+                            uuid:       device.uuid
+                        };
+
+                        MM.moodleWSCall(
+                            'core_user_add_user_device',
+                            data,
+                            function() {
+                                MM.log("Device registered in Moodle", "Notifications");
+                            },
+                            {cache: false},
+                            function() {
+                                MM.log("Error registering device in Moodle", "Notifications");
+                            }
+                        );
+                    } else {
+                        MM.log("Device NOT registered in GCM, invalid e.regid");
+                    }
+                    break;
+
+                case 'message':
+                    MM.log("Push notification message received", "Notifications");
+
+                    var notificationSiteId = 0;
+
+                    // We display the message whatever the site we are.
+                    // Notifications are binded to the token id generetad for the entire app.
+                    // We are going to receive notifications from different sites.
+                    // The event.site is a md5 hash of siteurl+username
+                    if (e.payload.message) {
+                        // Format and sanitize the input.
+                        e.payload.alert = MM.util.cleanTags(MM.util.formatText(e.payload.message));
+                        if (e.payload.site) {
+                            notificationSiteId = e.payload.site;
+                            var site = MM.db.get('sites', notificationSiteId);
+                            if (site) {
+                                e.payload.site = site.toJSON();
+                            } else {
+                                e.payload.site = null;
+                            }
+                        }
+
+                        var notifText = MM.tpl.render(MM.plugins.notifications.templates.notificationAlert.html, {"event": e.payload});
+                        MM.popMessage(notifText, {title: MM.lang.s("notifications"), autoclose: 5000, resizable: false});
+                    }
+
+                    var pushNotification = window.plugins.pushNotification;
+                    if (typeof(pushNotification.setApplicationIconBadgeNumber) === "function") {
+                        MM.plugins.notifications.badgeCount++;
+                        pushNotification.setApplicationIconBadgeNumber(
+                            function() {}, // Unused callback.
+                            function() {}, // Unused callback.
+                            MM.plugins.notifications.badgeCount);
+                    }
+
+                    // Store the notification in the app.
+                    // We store the full event (payload) because it may change.
+                    MM.db.insert("notifications", {
+                        siteid: notificationSiteId,
+                        alert: e.payload.alert,
+                        notification: e.payload
+                    });
+
+                    // If we were in background, then redirect to notifications when the user opens the app.
+                    if (typeof(e.foreground) != "undefined" &&
+                        ! parseInt(e.foreground) &&
+                        notificationSiteId == MM.config.current_site.id
+                        ) {
+                        // Fake the menu status for performing a proper animation.
+                        MM.panels.menuStatus = true;
+                        MM.plugins.notifications.showNotifications();
+                    }
+
+                    break;
+
+                case 'error':
+                    MM.log("Push message error", "Notifications");
+                    break;
+
+                default:
+                    MM.log("Push unknown message", "Notifications");
+                    break;
+            }
+
         },
 
         /**
@@ -342,10 +508,11 @@ define(requires, function (notifsTpl, notifTpl, notifsEnableTpl, notifAlert) {
          *
          * @param  {object} event Notification payload
          */
-        saveAndDisplay: function(event) {
+        APNSsaveAndDisplay: function(event) {
 
-            MM.log("Push notification received: " + JSON.stringify(event), "Notifications");
+            MM.log("Push notification received", "Notifications");
 
+            var notificationSiteId = 0;
 
             // We display the message whatever the site we are.
             // Notifications are binded to the token id generetad for the entire app.
@@ -355,7 +522,8 @@ define(requires, function (notifsTpl, notifTpl, notifsEnableTpl, notifAlert) {
                 // Format and sanitize the input.
                 event.alert = MM.util.cleanTags(MM.util.formatText(event.alert));
                 if (event.site) {
-                    var site = MM.db.get('sites', event.site);
+                    notificationSiteId = event.site;
+                    var site = MM.db.get('sites', notificationSiteId);
                     if (site) {
                         event.site = site.toJSON();
                     } else {
@@ -363,7 +531,7 @@ define(requires, function (notifsTpl, notifTpl, notifsEnableTpl, notifAlert) {
                     }
                 }
 
-                var notifText = MM.tpl.render(MM.plugins.notifications.templates.notificationAlert.html, {"event": event});;
+                var notifText = MM.tpl.render(MM.plugins.notifications.templates.notificationAlert.html, {"event": event});
                 MM.popMessage(notifText, {title: MM.lang.s("notifications"), autoclose: 5000, resizable: false});
             }
 
@@ -379,7 +547,7 @@ define(requires, function (notifsTpl, notifTpl, notifsEnableTpl, notifAlert) {
             // Store the notification in the app.
             // We store the full event (payload) because it may change.
             MM.db.insert("notifications", {
-                siteid: event.site.id,
+                siteid: notificationSiteId,
                 alert: event.alert,
                 notification: event
             });
@@ -387,7 +555,7 @@ define(requires, function (notifsTpl, notifTpl, notifsEnableTpl, notifAlert) {
             // If we were in background, then redirect to notifications when the user opens the app.
             if (typeof(event.foreground) != "undefined" &&
                 ! parseInt(event.foreground) &&
-                event.site == MM.config.current_site.id
+                notificationSiteId == MM.config.current_site.id
                 ) {
                 // Fake the menu status for performing a proper animation.
                 MM.panels.menuStatus = true;
