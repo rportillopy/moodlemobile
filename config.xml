@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
+        xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.moodle.moodlemobile"
-        versionCode = "373"
-        version   = "1.4.1">
+        versionCode = "374"
+        version   = "1.4.2">
     <name>Moodle Mobile</name>
 
     <description>
@@ -78,7 +79,23 @@
     <gap:plugin name="org.apache.cordova.inappbrowser" />
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
+    <gap:plugin name="com.phonegap.plugin.statusbar" />
 
     <gap:plugin name="com.phonegap.plugins.pushplugin" />
     <gap:plugin name="net.tunts.webintent" />
+
+    <gap:config-file platform="android" parent="/manifest/application">
+        <activity android:name=".MoodleMobileNewIntent">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/*" />
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="image/*" />
+                <data android:mimeType="text/*" />
+                <data android:mimeType="video/*" />
+            </intent-filter>
+        </activity>
+    </gap:config-file>
+
 </widget>
