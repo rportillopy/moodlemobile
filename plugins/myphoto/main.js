@@ -6,17 +6,27 @@ define(function () {
             icon: "plugins/myphoto/icon.png",
             subMenus: [
                 {name: "browsephotoalbums", menuURL: "#myphoto/browse", icon: ""},
-                {name: "takepicture", menuURL: "#myphoto/take", icon: ""},
+                {name: "takepictureprofile", menuURL: "#myphoto/take", icon: ""},
             ],
+/*
             lang: {
-                component: "core"
+                component: "local_myphoto",
+                strings: {
+                 "myphoto": "My photo",
+                 "browsephotoalbums": "Browse albums",
+                 "takepicture": "Hacer una foto",
+                },
+*/
+            lang: {
+                component: "core",
+
             },
             toogler: true
         },
 
         routes: [
-            ["upload/browse", "upload_browse", "browseAlbums"],
-            ["upload/take", "upload_take", "takeMedia"],
+            ["myphoto/browse", "myphoto_browse", "browseAlbums"],
+            ["myphoto/take", "myphoto_take", "takeMedia"],
         ],
 
         browseAlbums: function() {
