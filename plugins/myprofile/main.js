@@ -17,8 +17,10 @@ define(templates, function (myprofileTpl) {
             },
         },
         routes: [
-                  ["settings/myprofile", "myprofile", "showMyProfile"],
-                  ["clicmainphoto", "myprofile", "clicMainPhoto"],
+                  ["settings/myprofile", "myprofile_show", "showMyProfile"],
+                  ["clicmainphoto", "myprofile_alert", "clicMainPhoto"],
+                  ["settings/myprofile/take", "myprofile_take", "takeMedia"],
+                  ["settings/myprofile/browse", "myprofile_browse", "browseAlbums"],
                 ],
 
         /**
@@ -35,7 +37,6 @@ define(templates, function (myprofileTpl) {
 
 
         clicMainPhoto: function() {
-
             MM.popMessage(MM.lang.s("howtoeditprofile"),{autoclose: 0});
             //MM.displaySettings();
         },
@@ -60,6 +61,47 @@ define(templates, function (myprofileTpl) {
             //$(".img").hide();
             //MM.popMessage(MM.lang.s("clicmyprofile")+ MM.config.current_site.username);
             //$(".img").click(function() {alert("hola")});
+        },
+
+        takeMedia: function() {
+            MM.log('Trying to get a image from camera', 'myprofile');
+            MM.Router.navigate("");
+
+            navigator.camera.getPicture(MM.plugins.myprofile.photoSuccess, MM.plugins.myprofile.photoFails, {
+                quality: 50,
+                destinationType: navigator.camera.DestinationType.FILE_URI
+            });
+        },
+
+        photoSuccess: function(uri) {
+
+            MM.log('Uploading an image to Moodle', 'Upload');
+            var d = new Date();
+
+            var options = {};
+            options.fileKey="file";
+
+            // Check if is a URI or a file system path.
+            if (uri.indexOf('data:') > -1) {
+                options.fileName = "image_" + d.getTime() + ".jpg";
+            } else {
+                options.fileName = uri.lastIndexOf("/") + 1;
+            }
+
+            options.mimeType="image/jpeg";
+
+            MM.moodleUploadFile(uri, options,
+                                function(){ MM.popMessage(MM.lang.s("imagestored")); },
+                                function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) }
+            );
+
+        },
+
+        photoFails: function(message) {
+            MM.log('Error trying getting a photo', 'Upload');
+            if (message.toLowerCase().indexOf("error") > -1 || message.toLowerCase().indexOf("unable") > -1) {
+                MM.popErrorMessage(message);
+            }
         },
 
         templates: {
