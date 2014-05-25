@@ -37,7 +37,7 @@ define(templates, function (myprofileTpl) {
         clicMainPhoto: function() {
 
             MM.popMessage(MM.lang.s("howtoeditprofile"),{autoclose: 0});
-            MM.displaySettings();
+            //MM.displaySettings();
         },
 
         showMyProfile: function() {
