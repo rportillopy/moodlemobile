@@ -3,6 +3,12 @@
             <div class="user-picture">
                 <img src="<%= MM.util.getMoodleFilePath(user.profileimageurl) %>" alt="<% print( MM.util.formatText(user.fullname)); %>" />
                 &nbsp;&nbsp;<strong><% print( MM.util.formatText(user.fullname)); %></strong>
+
+                <div class="buttons">
+                   <div><a href="#settings/myprofile/takepicture"><button><%= MM.lang.s("takepicture") %></button></a></div>
+                   <div><a href="#settings/myprofile/browsephotoalbums"><button><%= MM.lang.s("browsephotoalbums") %></button></a></div>
+                </div>
+
             </div>
 
             <h2><%= MM.lang.s("contact") %></h2>
