@@ -15,6 +15,7 @@ define(templates, function (myprofileTpl) {
                  "howtoeditprofile": "string in the plugin",
                 },
             },
+            toogler: true
         },
         routes: [
                   ["settings/myprofile", "myprofile_show", "showMyProfile"],
