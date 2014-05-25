@@ -196,4 +196,7 @@
 "yoursiteurl": "https://yourmoodle.com",
 "yourusername": "username",
 "reportbugmail": "moodlemobilereport@gmail.com",
-"docsurl" : "http://docs.moodle.org/en/Mobile_app"}
+"docsurl" : "http://docs.moodle.org/en/Mobile_app",
+"myprofile": "My Profile",
+"howtoeditprofile": "In order to edit or show your profile click 'Settings' menu above",
+"clicmyprofile": "String in global language file"}
