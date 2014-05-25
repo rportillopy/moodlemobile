@@ -5,14 +5,14 @@
         id        = "es.udima.moodlemobile"
         versionCode = "374"
         version   = "1.4.2">
-    <name>MM Udima</name>
+    <name>MM TFC imarcob</name>
 
     <description>
-        Moodle Mobile UDIMA app
+        Moodle Mobile app. TFC de imarcob.
     </description>
 
-    <author href="http://moodle.com" email="jleyva@cvaconsulting.com">
-        Juan Leyva
+    <author href="http://moodle.com" email="marcoblancas@gmail.com">
+        Isaac Marco Blancas 
     </author>
 
     <feature name="http://api.phonegap.com/1.0/device" />
