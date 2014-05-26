@@ -8,7 +8,7 @@
 "plugins" : ["notifications", "upload", "events", "contents", "participants", "addcontact", "addnote", "sendmessage", "myprofile" ],
 "wsservice" : "moodle_mobile_app",
 "wsservicebak" : "custommm",
-"presets" : {"username": "local"},
+"presets" : {"username": "student"},
 "sync_ws_on" : true,
 "sync_lang_on" : true,
 "sync_css_on" : true,
