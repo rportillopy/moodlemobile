@@ -143,7 +143,7 @@
             </a>
         </div>
         <div class="img">
-            <img src="<%= MM.util.getMoodleFilePath(user.profileimageurl) %>" border="0">
+            <img src="<%= MM.util.getMoodleFilePath(user.profileimageurl) %>" border="0" IMBhack="remove onclick" onclick="MM.plugins.myprofile.clicMainPhoto()">
         </div>
         <div class="bd">
             <h1><%= user.fullname %></h1>
@@ -292,6 +292,9 @@
             </li>
             <li class="nav-item">
                 <a href="#settings/about/" class="menu1 touch-row"><%= MM.lang.s("about") %><br></a>
+            </li>
+            <li class="nav-item">
+                <a href="#settings/myprofile" class="menu1 touch-row"><%= MM.lang.s("myprofile")+" (IMB hack)" %><br></a>
             </li>
             <% _.each(plugins, function(plugin) { %>
             <li class="nav-item">
