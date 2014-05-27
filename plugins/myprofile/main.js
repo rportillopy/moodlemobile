@@ -40,15 +40,22 @@ define(templates, function (myprofileTpl) {
         clicMainPhoto: function() {
             MM.popMessage(MM.lang.s("howtoeditprofile"),{autoclose: 0});
             //MM.displaySettings();
-        },
-
+        }, 
         showMyProfile: function() {
             MM.panels.showLoading('right');
+/*
             var data = {
                 "field": "username",
                 "values[0]": MM.config.current_site.username 
             }
-            MM.moodleWSCall('core_user_get_users_by_field', data, function(users){
+*/
+            var data = {
+                "userlist[0][userid]": MM.config.current_site.userid,
+                "userlist[0][courseid]": 1 
+            }
+ 
+            //MM.moodleWSCall('core_user_get_users_by_field', data, function(users){
+            MM.moodleWSCall('moodle_user_get_course_participants_by_id', data, function(users){
                var myuser = users.shift();
                var pageTitle = MM.lang.s("myprofile");  
                var tpl = {"user": myuser};
