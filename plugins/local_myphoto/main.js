@@ -1,7 +1,7 @@
 define(function(langStrings) {
     var plugin = {
         settings: {
-            name:"myphoto",
+            name:"local_myphoto",
             type:"general",
             menuURL:"#myphoto",
             lang:{
