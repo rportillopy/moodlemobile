@@ -293,12 +293,9 @@
             <li class="nav-item">
                 <a href="#settings/about/" class="menu1 touch-row"><%= MM.lang.s("about") %><br></a>
             </li>
-            <li class="nav-item">
-                <a href="#settings/myprofile" class="menu1 touch-row"><%= MM.lang.s("myprofile")+" (IMB hack)" %><br></a>
-            </li>
             <% _.each(plugins, function(plugin) { %>
             <li class="nav-item">
-                <a href="#settings/plugin.menuURL" class="menu1 touch-row"><%= MM.lang.s(plugin.name) %><br></a>
+                <a href="#settings/<%= plugin.menuURL %>" class="menu1 touch-row"><%= MM.lang.s(plugin.name) %><br></a>
             </li>
             <% }); %>
         </ul>

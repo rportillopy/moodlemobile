@@ -7,7 +7,7 @@ define(templates, function (myprofileTpl) {
         settings: {
             name: "myprofile",
             type: "setting",
-            menuURL: "#settings/myprofile",
+            menuURL: "myprofile",
             lang: {
                 component: "core",
                 strings: {
