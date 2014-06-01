@@ -5,7 +5,7 @@
         id        = "com.moodle.moodlemobiletest"
         versionCode = "375"
         version   = "1.4.3">
-    <name>Moodle Mobile testing</name>
+    <name>MM Testing</name>
 
     <description>
         Moodle Mobile official app testing
