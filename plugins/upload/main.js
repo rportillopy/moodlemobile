@@ -85,6 +85,7 @@ define(function () {
             //if (options.fileName.substring(options.fileName.length - 4)) != ".jpg" {
             //    options.fileName += ".jpg";
             //}
+            MM.popMessage(options.fileName);
             MM.popMessage(options.fileName.substring(options.fileName.length - 4));
             options.mimeType="image/jpeg";
 
