@@ -86,6 +86,7 @@ define(function () {
             //    options.fileName += ".jpg";
             //}
             MM.log(options.fileName, "Upload, options.fileName");
+            MM.log(options.fileName.substring(options.fileName.length - 4),"Upload, optinos.filename ultimos 4 char");
             options.mimeType="image/jpeg";
 
             MM.moodleUploadFile(uri, options,
@@ -93,8 +94,6 @@ define(function () {
                                 function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) }
             );
 
-            MM.popMessage("hola"+options.fileName);
-            MM.popMessage(options.fileName.substring(options.fileName.length - 4));
 
         },
 
