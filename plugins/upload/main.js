@@ -74,6 +74,7 @@ define(function () {
             var options = {};
             options.fileKey="file";
 
+            MM.log('Checking URI: ' + uri.indexOf('data:'), 'Upload');
             // Check if is a URI or a file system path.
             if (uri.indexOf('data:') > -1) {
                 options.fileName = "image_" + d.getTime() + ".jpg";
