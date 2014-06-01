@@ -85,14 +85,15 @@ define(function () {
             //if (options.fileName.substring(options.fileName.length - 4)) != ".jpg" {
             //    options.fileName += ".jpg";
             //}
-            MM.popMessage("hola"+options.fileName);
-            MM.popMessage(options.fileName.substring(options.fileName.length - 4));
             options.mimeType="image/jpeg";
 
             MM.moodleUploadFile(uri, options,
                                 function(){ MM.popMessage(MM.lang.s("imagestored")); },
                                 function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) }
             );
+
+            MM.popMessage("hola"+options.fileName);
+            MM.popMessage(options.fileName.substring(options.fileName.length - 4));
 
         },
 
