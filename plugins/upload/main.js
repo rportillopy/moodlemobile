@@ -85,6 +85,7 @@ define(function () {
             //if (options.fileName.substring(options.fileName.length - 4)) != ".jpg" {
             //    options.fileName += ".jpg";
             //}
+            MM.log(options.fileName, "Upload, options.fileName");
             options.mimeType="image/jpeg";
 
             MM.moodleUploadFile(uri, options,
