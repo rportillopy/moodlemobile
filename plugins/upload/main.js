@@ -74,20 +74,22 @@ define(function () {
             var options = {};
             options.fileKey="file";
 
+            MM.log('Before checking URI: ' + uri, 'Upload');
             // Check if is a URI or a file system path.
             if (uri.indexOf('data:') > -1) {
                 options.fileName = "image_" + d.getTime() + ".jpg";
             } else {
-                options.fileName = uri.lastIndexOf("/") + 1;
+                options.fileName = uri.substring(uri.lastIndexOf("/") + 1);
             }
-
+            // We add .jpg to the fileName if it don't finish with .jpg in order to be pickable when user change picture profile.
+            if (options.fileName.substring(options.fileName.length - 4) != ".jpg") {
+                options.fileName = options.fileName + ".jpg";
+            }
             options.mimeType="image/jpeg";
-
             MM.moodleUploadFile(uri, options,
                                 function(){ MM.popMessage(MM.lang.s("imagestored")); },
                                 function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) }
             );
-
         },
 
         photoFails: function(message) {
