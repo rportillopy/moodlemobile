@@ -83,18 +83,13 @@ define(function () {
             }
             // We add .jpg to the fileName if it don't finish with .jpg in order to be pickable when user change picture profile.
             if (options.fileName.substring(options.fileName.length - 4)) != ".jpg" {
-            //    options.fileName += ".jpg";
+                options.fileName = options.fileName + ".jpg";
             }
-            MM.log(options.fileName, "Upload, options.fileName");
-            MM.log(options.fileName.substring(options.fileName.length - 4),"Upload, optinos.filename ultimos 4 char");
             options.mimeType="image/jpeg";
-
             MM.moodleUploadFile(uri, options,
                                 function(){ MM.popMessage(MM.lang.s("imagestored")); },
                                 function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) }
             );
-
-
         },
 
         photoFails: function(message) {
