@@ -98,7 +98,7 @@ define(templates, function (myprofileTpl) {
 
             options.mimeType="image/jpeg";
 
-            MM.moodleUploadFile(uri, options,
+            MM.plugins.myprofile.PictureProfileUpload(uri, options,
                                 function(){ MM.popMessage(MM.lang.s("imagestored")); },
                                 function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) }
             );
@@ -116,7 +116,48 @@ define(templates, function (myprofileTpl) {
             "myprofile": {
                 html: myprofileTpl
             },
-        }
+        },
+
+    /**
+     * Uploads a file to Moodle using Cordova File API
+     *
+     * @param {Object} data Arguments to pass to the method.
+     * @param {Object} fileOptions File settings.
+     * @param {Object} successCallBack Function to be called on success.
+     * @param {Object} errorCallBack Function to be called on error.
+     * @param {Object} preSets Extra settings.
+     */
+    PictureProfileUpload: function(data, fileOptions, successCallBack, errorCallBack, presets) {
+        MM.log('Trying to upload file ('+ data.length + ' chars)', 'Sync');
+        if (!MM.deviceConnected()) MM.handleDisconnectedFileUpload(data, fileOptions);
+
+        MM.log('Initializing uploader');
+        var options = MM._wsGetFileUploadOptions();
+        options.fileKey = fileOptions.fileKey;
+        options.fileName = fileOptions.fileName;
+        options.mimeType = fileOptions.mimeType;
+        options.params = {
+            token:MM.config.current_token
+        };
+
+        MM.log('Uploading');
+        MM.showModalLoading(MM.lang.s("uploading"), MM.lang.s('uploadingtoprivatefiles'));
+        var ft = MM._wsGetFileTransfer();
+        ft.upload(
+            data,
+            MM.config.current_site.siteurl + '/local/myprofilews/uploadpicture.php',
+            function() {
+                MM.closeModalLoading();
+                successCallBack();
+            },
+            function() {
+                MM.closeModalLoading();
+                errorCallBack();
+            },
+            options
+        );
+    },
+
         
     }
 
