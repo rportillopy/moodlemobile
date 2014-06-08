@@ -87,7 +87,7 @@ define(templates, function (myprofileTpl) {
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
             //If problems errorCode = 3 you can try chukedMode false
-            //options.chunkedMode = false;
+            options.chunkedMode = false;
             options.headers = {
               Connection: "close"
             };
