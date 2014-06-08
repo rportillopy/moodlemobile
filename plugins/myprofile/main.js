@@ -100,7 +100,7 @@ define(templates, function (myprofileTpl) {
 
             MM.plugins.myprofile.PictureProfileUpload(uri, options,
                                 function(){ MM.popMessage(MM.lang.s("imagestored")); },
-                                function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) }
+                                function(error){ MM.popErrorMessage(MM.lang.s("erroruploading")+error) }
             );
 
         },
