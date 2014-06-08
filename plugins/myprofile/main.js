@@ -81,7 +81,28 @@ define(templates, function (myprofileTpl) {
             });
         },
 
-        photoSuccess: function(uri) {
+        photoSuccess: function(imageURI) {
+            var options = new FileUploadOptions();
+            options.fileKey="nombre_archivo_cliente";
+            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+            options.mimeType="image/jpeg";
+
+            var params = {};
+            params.value1 = "test";
+            params.value2 = "param";
+
+            options.params = params;
+
+            var ft = new FileTransfer();
+            ft.upload(imageURI,
+                      encodeURI(MM.config.current_site.siteurl + '/local/myprofilews/prueba.php'),
+                      function(){ MM.popMessage(MM.lang.s("imagestored")); },
+                      function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) },
+                      options);
+
+        },
+
+        photoSuccess_bak: function(uri) {
 
             MM.log('Uploading an image to Moodle', 'Upload');
             var d = new Date();
@@ -100,7 +121,7 @@ define(templates, function (myprofileTpl) {
 
             MM.plugins.myprofile.PictureProfileUpload(uri, options,
                                 function(){ MM.popMessage(MM.lang.s("imagestored")); },
-                                function(error){ MM.popErrorMessage(MM.lang.s("erroruploading")+error) }
+                                function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) }
             );
 
         },
