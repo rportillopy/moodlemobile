@@ -107,7 +107,7 @@ define(templates, function (myprofileTpl) {
                       MM.plugins.myprofile.fail_upload,
                       options,
                       true);
-
+            window.location.reload(true);
         },
 
 
