@@ -82,8 +82,8 @@ define(function () {
 
                 // We add .jpg to the fileName if it don't finish with .jpg or .jpeg in order to be pickable when user change picture profile.
                 // It happens uploading from the gallery on android
-                if (options.fileName.substring(options.fileName.length - 4) != ".jpg") &&
-                   (options.fileName.substring(options.fileName.length - 5) != ".jpeg") {
+                if ((options.fileName.substring(options.fileName.length - 4) != ".jpg") && 
+                    (options.fileName.substring(options.fileName.length - 5) != ".jpeg")) {
                      options.fileName = options.fileName + ".jpg";
                 }
             }
