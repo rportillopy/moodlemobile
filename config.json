@@ -17,7 +17,7 @@
 "sync_css" : 3600000,
 "sync_lang" : 3600000,
 "log_length" : 100,
-"dev_debug": false,
+"dev_debug": true,
 "extra_js": [],
 "demo_sites": [{"key": "student", "url": "http://school.demo.moodle.net", "username": "student", "password": "moodle"}, {"key": "teacher", "url": "http://school.demo.moodle.net", "username": "teacher", "password": "moodle"}, {"key": "cva", "url": "http://mm.cvaconsulting.com/moodle", "username": "student", "password": "student"}, {"key": "local", "url": "http://192.168.1.33/moodle26/", "username": "sinesio.sanchez", "password": "demo01"}],
 "notifications_enabled": true,
