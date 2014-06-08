@@ -86,6 +86,7 @@ define(templates, function (myprofileTpl) {
             options.fileKey="nombre_archivo_cliente";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
+            options.chunkedMode = false;
             options.headers = {
               Connection: "close"
             };
