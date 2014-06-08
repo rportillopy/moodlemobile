@@ -103,7 +103,8 @@ define(templates, function (myprofileTpl) {
                       function(){ MM.popMessage(MM.lang.s("imagestored")); },
                      // function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) },
                       MM.plugins.myprofile.fail_upload,
-                      options);
+                      options,
+                      true);
 
         },
 
