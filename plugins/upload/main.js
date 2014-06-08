@@ -88,7 +88,6 @@ define(function () {
                 }
             }
 
-
             options.mimeType="image/jpeg";
 
             MM.moodleUploadFile(uri, options,
