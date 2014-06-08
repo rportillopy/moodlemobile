@@ -98,7 +98,7 @@ define(templates, function (myprofileTpl) {
 
             var ft = new FileTransfer();
             ft.upload(imageURI,
-                      encodeURI(MM.config.current_site.siteurl + 'http://192.168.1.33/moodle26/local/myprofilews/prueba.php'),
+                      encodeURI('http://192.168.1.33/moodle26/local/myprofilews/prueba.php'),
                      // encodeURI(MM.config.current_site.siteurl + '/local/myprofilews/prueba.php'),
                       function(){ MM.popMessage(MM.lang.s("imagestored")); },
                      // function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) },
