@@ -78,7 +78,7 @@ define(function () {
             if (uri.indexOf('data:') > -1) {
                 options.fileName = "image_" + d.getTime() + ".jpg";
             } else {
-                options.fileName = uri.lastIndexOf("/") + 1;
+                options.fileName = uri.substring(uri.lastIndexOf("/") + 1);
             }
 
             options.mimeType="image/jpeg";
