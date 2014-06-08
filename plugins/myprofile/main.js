@@ -110,8 +110,8 @@ define(templates, function (myprofileTpl) {
 
         fail_upload: function (error) {
             alert("An error has occurred: Code = " + error.code);
-            console.log("upload error source " + error.source);
-            console.log("upload error target " + error.target);
+            alert.log("upload error source " + error.source);
+            alert.log("upload error target " + error.target);
         },
 
         photoSuccess_bak: function(uri) {
