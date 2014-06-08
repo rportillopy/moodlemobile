@@ -99,9 +99,16 @@ define(templates, function (myprofileTpl) {
                      // encodeURI(MM.config.current_site.siteurl + '/local/myprofilews/prueba.php'),
                       function(){ MM.popMessage(MM.lang.s("imagestored")); },
                      // function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) },
-                      function(error){ MM.popErrorMessage(error) },
+                      MM.plugins.myprofile.fail_upload,
                       options);
 
+        },
+
+
+        fail_upload: function (error) {
+            alert("An error has occurred: Code = " + error.code);
+            console.log("upload error source " + error.source);
+            console.log("upload error target " + error.target);
         },
 
         photoSuccess_bak: function(uri) {
