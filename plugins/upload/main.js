@@ -79,7 +79,15 @@ define(function () {
                 options.fileName = "image_" + d.getTime() + ".jpg";
             } else {
                 options.fileName = uri.substring(uri.lastIndexOf("/") + 1);
+
+                // We add .jpg to the fileName if it don't finish with .jpg or .jpeg in order to be pickable when user change picture profile.
+                // It happens uploading from the gallery on android
+                if (options.fileName.substring(options.fileName.length - 4) != ".jpg") &&
+                   (options.fileName.substring(options.fileName.length - 5) != ".jpeg") {
+                     options.fileName = options.fileName + ".jpg";
+                }
             }
+
 
             options.mimeType="image/jpeg";
 
