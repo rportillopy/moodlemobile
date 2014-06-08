@@ -1,11 +1,11 @@
 define(function(langStrings) {
     var plugin = {
         settings: {
-            name:"local_myphoto",
+            name:"myphoto",
             type:"general",
             menuURL:"#myphoto",
             lang:{
-                component:"core",
+                component:"local_myphoto",
                 strings:{"clicmyphoto":"string in the plugin",
                 },
             },
