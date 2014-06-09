@@ -69,6 +69,7 @@ define(templates, function (myprofileTpl) {
             //$(".img").hide();
             //MM.popMessage(MM.lang.s("clicmyprofile")+ MM.config.current_site.username);
             //$(".img").click(function() {alert("hola")});
+
         },
 
         takeMedia: function() {
@@ -104,21 +105,26 @@ define(templates, function (myprofileTpl) {
             ft.upload(imageURI,
                       encodeURI('http://192.168.1.33/moodle26/local/mypicturews/prueba.php'),
                      // encodeURI(MM.config.current_site.siteurl + '/local/myprofilews/prueba.php'),
-                      function(){ MM.popMessage(MM.lang.s("exittorefresh")); },
-                     // function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) },
+                      MM.plugins.myprofile.success_upload,
                       MM.plugins.myprofile.fail_upload,
                       options,
                       true);
             //window.location.reload(true);
             //window.location.assign(MM.util.getMoodleFilePath(user.profileimageurl));
-            // $("#myphoto").attr("src",MM.config.current_site.profileimageurl+'&time='+new Date().getTime());
+            //MM.popMessage(MM.site.get('userpictureurl')+"hola");
+        },
+
+        success_upload: function() {
+            $("#myphoto").attr("src",MM.site.get('userpictureurl')+'&time='+new Date().getTime());
+            MM.popMessage(MM.lang.s("exittorefresh"));
         },
 
 
         fail_upload: function (error) {
-            alert("An error has occurred: Code = " + error.code);
-            alert("upload error source " + error.source);
-            alert("upload error target " + error.target);
+            MM.popErrorMessage(MM.lang.s("erroruploading"))
+            //alert("An error has occurred: Code = " + error.code);
+            //alert("upload error source " + error.source);
+            //alert("upload error target " + error.target);
         },
 
         photoSuccess_bak: function(uri) {
