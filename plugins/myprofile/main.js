@@ -115,7 +115,7 @@ define(templates, function (myprofileTpl) {
         },
 
         success_upload: function() {
-            $("#myphoto").attr("src",MM.site.get('userpictureurl')+'&time='+new Date().getTime());
+            $(".profilepicture").attr("src",MM.site.get('userpictureurl')+'&time='+new Date().getTime());
             MM.popMessage(MM.lang.s("exittorefresh"));
         },
 
