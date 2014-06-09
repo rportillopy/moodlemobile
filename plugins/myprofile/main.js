@@ -77,6 +77,8 @@ define(templates, function (myprofileTpl) {
 
             navigator.camera.getPicture(MM.plugins.myprofile.photoSuccess, MM.plugins.myprofile.photoFails, {
                 quality: 50,
+                direction: 1,
+                correctOrientation: true,
                 destinationType: navigator.camera.DestinationType.FILE_URI
             });
         },
@@ -102,12 +104,14 @@ define(templates, function (myprofileTpl) {
             ft.upload(imageURI,
                       encodeURI('http://192.168.1.33/moodle26/local/mypicturews/prueba.php'),
                      // encodeURI(MM.config.current_site.siteurl + '/local/myprofilews/prueba.php'),
-                      function(){ MM.popMessage(MM.lang.s("imagestored")); },
+                      function(){ MM.popMessage(MM.lang.s("exittorefresh")); },
                      // function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) },
                       MM.plugins.myprofile.fail_upload,
                       options,
                       true);
-            window.location.reload(true);
+            //window.location.reload(true);
+            //window.location.assign(MM.util.getMoodleFilePath(user.profileimageurl));
+            // $("#myphoto").attr("src",MM.config.current_site.profileimageurl+'&time='+new Date().getTime());
         },
 
 
