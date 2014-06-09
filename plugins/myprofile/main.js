@@ -23,6 +23,7 @@ define(templates, function (myprofileTpl) {
                   ["settings/myprofile/take", "myprofile_take", "takeMedia"],
                   ["settings/myprofile/browse", "myprofile_browse", "browseAlbums"],
                 ],
+        lastUploadStamp: "",
 
         /**
          * Determines is the plugin is visible.
@@ -62,6 +63,7 @@ define(templates, function (myprofileTpl) {
                var html = MM.tpl.render(MM.plugins.myprofile.templates.myprofile.html, tpl);
                MM.panels.show('right', html, {title: pageTitle});
                //MM.log(JSON.stringify(user),"profile");
+               $("img[src='"+MM.site.get('userpictureurl')+"']").attr("src",MM.site.get('userpictureurl')+MM.plugins.myprofile.lastUploadStamp);
                MM.log("We have an OBJECT with the user profile","profile");
                console.log(myuser);
             });
@@ -115,7 +117,10 @@ define(templates, function (myprofileTpl) {
         },
 
         success_upload: function() {
-            $(".profilepicture").attr("src",MM.site.get('userpictureurl')+'&time='+new Date().getTime());
+            //$(".profilepicture").attr("src",MM.site.get('userpictureurl')+'&time='+new Date().getTime());
+            MM.plugins.myprofile.lastUploadStamp='&time='+new Date().getTime();
+            $("img[src='"+MM.site.get('userpictureurl')+"']").attr("src",MM.site.get('userpictureurl')+MM.plugins.myprofile.lastUploadStamp);
+            //$("img[src=\'"+MM.site.get('userpictureurl')+"\']").attr("src",MM.site.get('userpictureurl')+MM.plugins.myprofile.lastUploadStamp);
             MM.popMessage(MM.lang.s("exittorefresh"));
         },
 
