@@ -121,7 +121,7 @@ define(templates, function (myprofileTpl) {
             //$(".profilepicture").attr("src",MM.site.get('userpictureurl')+'&time='+new Date().getTime());
             MM.plugins.myprofile.lastUploadStamp='&time='+new Date().getTime();
             //$("img[src=\'"+MM.site.get('userpictureurl')+"\']").attr("src",MM.site.get('userpictureurl')+MM.plugins.myprofile.lastUploadStamp);
-            $("img[src='"+MM.plugins.myprofile.urlPicture+"']").attr("src",MM.plugins.myprofile.urlPicture+MM.plugins.myprofile.lastUploadStamp);
+            $("img[src='"+MM.site.get('userpictureurl')+"?token="+MM.config.current_token+"']").attr("src",MM.site.get('userpictureurl')+"?token="+MM.config.current_token+MM.plugins.myprofile.lastUploadStamp);
             MM.popMessage(MM.lang.s("exittorefresh"));
         },
 
