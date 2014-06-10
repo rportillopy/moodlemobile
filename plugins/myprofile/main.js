@@ -66,8 +66,8 @@ define(templates, function (myprofileTpl) {
                //MM.log(JSON.stringify(user),"profile");
                MM.plugins.myprofile.urlPicture = MM.util.getMoodleFilePath(myuser.profileimageurl);
                $("img[src='"+MM.plugins.myprofile.urlPicture+"']").attr("src",MM.plugins.myprofile.urlPicture+MM.plugins.myprofile.lastUploadStamp);
-               MM.popMessage(MM.plugins.myprofile.urlPicture);
-               MM.log(MM.plugins.myprofile.urlPicture, 'myprofile userpicture calculated');
+               //MM.popMessage(MM.plugins.myprofile.urlPicture);
+               //MM.log(MM.plugins.myprofile.urlPicture, 'myprofile userpicture calculated');
                MM.log("We have an OBJECT with the user profile","profile");
                console.log(myuser);
             });
@@ -121,10 +121,14 @@ define(templates, function (myprofileTpl) {
         },
 
         success_upload: function() {
-            //$(".profilepicture").attr("src",MM.site.get('userpictureurl')+'&time='+new Date().getTime());
-            MM.plugins.myprofile.lastUploadStamp='&time='+new Date().getTime();
-            //$("img[src=\'"+MM.site.get('userpictureurl')+"\']").attr("src",MM.site.get('userpictureurl')+MM.plugins.myprofile.lastUploadStamp);
-            $("img[src='"+MM.plugins.myprofile.urlPicture+"']").attr("src",MM.plugins.myprofile.urlPicture+MM.plugins.myprofile.lastUploadStamp);
+            if (MM.plugins.myprofile.lastUploadStamp == "") {
+                MM.plugins.myprofile.lastUploadStamp='&time='+new Date().getTime();
+                $("img[src='"+MM.plugins.myprofile.urlPicture+"']").attr("src",MM.plugins.myprofile.urlPicture+MM.plugins.myprofile.lastUploadStamp);
+            } else {
+                newStamp = '&time='+new Date().getTime();
+                $("img[src='"+MM.plugins.myprofile.urlPicture+MM.plugins.myprofile.lastUploadStamp+"']").attr("src",MM.plugins.myprofile.urlPicture+newStamp);
+                MM.plugins.myprofile.lastUploadStamp=newStamp;
+            }
             MM.popMessage(MM.lang.s("exittorefresh"));
         },
 
