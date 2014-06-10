@@ -24,6 +24,7 @@ define(templates, function (myprofileTpl) {
                   ["settings/myprofile/browse", "myprofile_browse", "browseAlbums"],
                 ],
         lastUploadStamp: "",
+        urlPicture: "",
 
         /**
          * Determines is the plugin is visible.
@@ -63,8 +64,10 @@ define(templates, function (myprofileTpl) {
                var html = MM.tpl.render(MM.plugins.myprofile.templates.myprofile.html, tpl);
                MM.panels.show('right', html, {title: pageTitle});
                //MM.log(JSON.stringify(user),"profile");
-               MM.popMessage(MM.site.get('userpictureurl')+"?token="+MM.config.current_token);
-               $("img[src='"+MM.site.get('userpictureurl')+"?token="+MM.config.current_token+"']").attr("src",MM.site.get('userpictureurl')+"?token="+MM.config.current_token+MM.plugins.myprofile.lastUploadStamp);
+               MM.plugins.myprofile.urlPicture = MM.util.getMoodleFilePath(myuser.profileimageurl);
+               $("img[src='"+MM.plugins.myprofile.urlPicture+"']").attr("src",MM.plugins.myprofile.urlPicture+MM.plugins.myprofile.lastUploadStamp);
+               MM.popMessage(MM.plugins.myprofile.urlPicture);
+               MM.log(MM.plugins.myprofile.urlPicture, 'myprofile userpicture calculated');
                MM.log("We have an OBJECT with the user profile","profile");
                console.log(myuser);
             });
@@ -121,7 +124,7 @@ define(templates, function (myprofileTpl) {
             //$(".profilepicture").attr("src",MM.site.get('userpictureurl')+'&time='+new Date().getTime());
             MM.plugins.myprofile.lastUploadStamp='&time='+new Date().getTime();
             //$("img[src=\'"+MM.site.get('userpictureurl')+"\']").attr("src",MM.site.get('userpictureurl')+MM.plugins.myprofile.lastUploadStamp);
-            $("img[src='"+MM.site.get('userpictureurl')+"?token="+MM.config.current_token+"']").attr("src",MM.site.get('userpictureurl')+"?token="+MM.config.current_token+MM.plugins.myprofile.lastUploadStamp);
+            $("img[src='"+MM.plugins.myprofile.urlPicture+"']").attr("src",MM.plugins.myprofile.urlPicture+MM.plugins.myprofile.lastUploadStamp);
             MM.popMessage(MM.lang.s("exittorefresh"));
         },
 
