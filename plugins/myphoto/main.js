@@ -1,4 +1,4 @@
-define(function(langStrings) {
+define(function() {
     var plugin = {
         settings: {
             name:"myphoto",
