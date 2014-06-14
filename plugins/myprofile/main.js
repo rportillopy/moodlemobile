@@ -23,9 +23,10 @@ define(templates, function (myprofileTpl) {
                   ["settings/myprofile/take", "myprofile_take", "takeMedia"],
                   ["settings/myprofile/browse", "myprofile_browse", "browseAlbums"],
                 ],
+/*
         lastUploadStamp: "",
         urlPicture: "",
-
+*/
         /**
          * Determines is the plugin is visible.
          * It may check Moodle remote site version, device OS, device type, etc...
@@ -64,8 +65,11 @@ define(templates, function (myprofileTpl) {
                var html = MM.tpl.render(MM.plugins.myprofile.templates.myprofile.html, tpl);
                MM.panels.show('right', html, {title: pageTitle});
                //MM.log(JSON.stringify(user),"profile");
+/*
                MM.plugins.myprofile.urlPicture = MM.util.getMoodleFilePath(myuser.profileimageurl);
                $("img[src='"+MM.plugins.myprofile.urlPicture+"']").attr("src",MM.plugins.myprofile.urlPicture+MM.plugins.myprofile.lastUploadStamp);
+*/
+
                //MM.popMessage(MM.plugins.myprofile.urlPicture);
                //MM.log(MM.plugins.myprofile.urlPicture, 'myprofile userpicture calculated');
                MM.log("We have an OBJECT with the user profile","profile");
@@ -121,6 +125,7 @@ define(templates, function (myprofileTpl) {
         },
 
         success_upload: function() {
+/*
             if (MM.plugins.myprofile.lastUploadStamp == "") {
                 MM.plugins.myprofile.lastUploadStamp='&time='+new Date().getTime();
                 $("img[src='"+MM.plugins.myprofile.urlPicture+"']").attr("src",MM.plugins.myprofile.urlPicture+MM.plugins.myprofile.lastUploadStamp);
@@ -129,6 +134,9 @@ define(templates, function (myprofileTpl) {
                 $("img[src='"+MM.plugins.myprofile.urlPicture+MM.plugins.myprofile.lastUploadStamp+"']").attr("src",MM.plugins.myprofile.urlPicture+newStamp);
                 MM.plugins.myprofile.lastUploadStamp=newStamp;
             }
+*/
+//MM.refresh();
+MM.loadSite(MM.config.current_site.id);
             MM.popMessage(MM.lang.s("exittorefresh"));
         },
 
