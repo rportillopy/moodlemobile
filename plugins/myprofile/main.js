@@ -93,6 +93,7 @@ define(templates, function (myprofileTpl) {
             var params = {};
             params.value1 = "test";
             params.value2 = "param";
+            params.token = MM.config.current_token;
 
             options.params = params;
 
