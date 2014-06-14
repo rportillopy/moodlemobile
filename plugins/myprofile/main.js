@@ -112,6 +112,7 @@ define(templates, function (myprofileTpl) {
                 $("img[src='"+MM.plugins.myprofile.urlPicture+MM.plugins.myprofile.lastUploadStamp+"']").attr("src",MM.plugins.myprofile.urlPicture+newStamp);
                 MM.plugins.myprofile.lastUploadStamp=newStamp;
             }
+            MM.popMessage(MM.site.get('fileuploaded");
         },
 
 
