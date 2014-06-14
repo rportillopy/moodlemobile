@@ -135,8 +135,9 @@ define(templates, function (myprofileTpl) {
                 MM.plugins.myprofile.lastUploadStamp=newStamp;
             }
 */
-MM.refresh();
+//MM.refresh();
 //MM.loadSite(MM.config.current_site.id);
+super.clearCache();
             MM.popMessage(MM.lang.s("exittorefresh"));
         },
 
