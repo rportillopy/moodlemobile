@@ -2,17 +2,17 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
-        id        = "com.moodle.moodlemobile"
+        id        = "com."
         versionCode = "375"
         version   = "1.4.3">
-    <name>Moodle Mobile</name>
+    <name>Moodle Mobile. TFC imarcob</name>
 
     <description>
-        Moodle Mobile official app
+        Based on the Moodle Mobile official app and modified to allow to upgrade your picture profile using your camera.
     </description>
 
-    <author href="http://moodle.com" email="jleyva@cvaconsulting.com">
-        Juan Leyva
+    <author href="http://www.masmultimedia.com" email="marcoblancas@gmail.com">
+        Isaac Marco
     </author>
 
     <feature name="http://api.phonegap.com/1.0/device" />
