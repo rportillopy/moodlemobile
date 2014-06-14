@@ -138,6 +138,7 @@ define(templates, function (myprofileTpl) {
            //MM.loadSite(MM.config.current_site.id);
             MM.popMessage(MM.lang.s("exittorefresh"));
             MM.refresh();
+            $("img[src='"+MM.plugins.myprofile.urlPicture+"']").attr("src",MM.plugins.myprofile.urlPicture);
         },
 
 
