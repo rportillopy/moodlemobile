@@ -151,6 +151,8 @@ define(templates, function (myprofileTpl) {
                 quality: 50,
                 destinationType: navigator.camera.DestinationType.FILE_URI,
                 sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+                correctOrientation: true,
+                encodingType : 0, // JPEG... seems required to correct de orientation
                 popoverOptions : popover
             });
         },
