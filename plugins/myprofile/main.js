@@ -19,7 +19,6 @@ define(templates, function (myprofileTpl) {
         },
         routes: [
                   ["settings/myprofile", "myprofile_show", "showMyProfile"],
-                  ["clicmainphoto", "myprofile_alert", "clicMainPhoto"],
                   ["settings/myprofile/take", "myprofile_take", "takeMedia"],
                   ["settings/myprofile/browse", "myprofile_browse", "browseAlbums"],
                 ],
@@ -38,11 +37,6 @@ define(templates, function (myprofileTpl) {
             return visible;
         },
 
-
-        clicMainPhoto: function() {
-            MM.popMessage(MM.lang.s("howtoeditprofile"),{autoclose: 0});
-            //MM.displaySettings();
-        }, 
         showMyProfile: function() {
             MM.panels.showLoading('right');
             var data = {
@@ -118,7 +112,6 @@ define(templates, function (myprofileTpl) {
                 $("img[src='"+MM.plugins.myprofile.urlPicture+MM.plugins.myprofile.lastUploadStamp+"']").attr("src",MM.plugins.myprofile.urlPicture+newStamp);
                 MM.plugins.myprofile.lastUploadStamp=newStamp;
             }
-            MM.popMessage(MM.lang.s("exittorefresh"));
         },
 
 
