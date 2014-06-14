@@ -45,12 +45,6 @@ define(templates, function (myprofileTpl) {
         }, 
         showMyProfile: function() {
             MM.panels.showLoading('right');
-/*
-            var data = {
-                "field": "username",
-                "values[0]": MM.config.current_site.username 
-            }
-*/
             var data = {
                 "userlist[0][userid]": MM.config.current_site.userid,
                 "userlist[0][courseid]": 1 
@@ -71,11 +65,6 @@ define(templates, function (myprofileTpl) {
                MM.log("We have an OBJECT with the user profile","profile");
                console.log(myuser);
             });
-
-            //$(".img").hide();
-            //MM.popMessage(MM.lang.s("clicmyprofile")+ MM.config.current_site.username);
-            //$(".img").click(function() {alert("hola")});
-
         },
 
         takeMedia: function() {
@@ -140,29 +129,6 @@ define(templates, function (myprofileTpl) {
             //alert("upload error target " + error.target);
         },
 
-        photoSuccess_bak: function(uri) {
-
-            MM.log('Uploading an image to Moodle', 'Upload');
-            var d = new Date();
-
-            var options = {};
-            options.fileKey="file";
-
-            // Check if is a URI or a file system path.
-            if (uri.indexOf('data:') > -1) {
-                options.fileName = "image_" + d.getTime() + ".jpg";
-            } else {
-                options.fileName = uri.lastIndexOf("/") + 1;
-            }
-
-            options.mimeType="image/jpeg";
-
-            MM.plugins.myprofile.PictureProfileUpload(uri, options,
-                                function(){ MM.popMessage(MM.lang.s("imagestored")); },
-                                function(){ MM.popErrorMessage(MM.lang.s("erroruploading")) }
-            );
-
-        },
 
         photoFails: function(message) {
             MM.log('Error trying getting a photo', 'Upload');
@@ -176,50 +142,7 @@ define(templates, function (myprofileTpl) {
                 html: myprofileTpl
             },
         },
-
-    /**
-     * Uploads a file to Moodle using Cordova File API
-     *
-     * @param {Object} data Arguments to pass to the method.
-     * @param {Object} fileOptions File settings.
-     * @param {Object} successCallBack Function to be called on success.
-     * @param {Object} errorCallBack Function to be called on error.
-     * @param {Object} preSets Extra settings.
-     */
-    PictureProfileUpload: function(data, fileOptions, successCallBack, errorCallBack, presets) {
-        MM.log('Trying to upload file ('+ data.length + ' chars)', 'Sync');
-        if (!MM.deviceConnected()) MM.handleDisconnectedFileUpload(data, fileOptions);
-
-        MM.log('Initializing uploader');
-        var options = MM._wsGetFileUploadOptions();
-        options.fileKey = fileOptions.fileKey;
-        options.fileName = fileOptions.fileName;
-        options.mimeType = fileOptions.mimeType;
-        options.params = {
-            token:MM.config.current_token
-        };
-
-        MM.log('Uploading');
-        MM.showModalLoading(MM.lang.s("uploading"), MM.lang.s('uploadingtoprivatefiles'));
-        var ft = MM._wsGetFileTransfer();
-        ft.upload(
-            data,
-            MM.config.current_site.siteurl + '/local/myprofilews/uploadpicture.php',
-            function() {
-                MM.closeModalLoading();
-                successCallBack();
-            },
-            function() {
-                MM.closeModalLoading();
-                errorCallBack();
-            },
-            options
-        );
-    },
-
-        
     }
 
     MM.registerPlugin(plugin);
-    //$(".img").click(function(){MM.plugins.myprofile.clicMainPhoto();}); 
 });
