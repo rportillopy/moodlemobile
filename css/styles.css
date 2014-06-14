@@ -328,7 +328,7 @@ ol {
 }
 
 .header-main {
-  background-color: #fa8f1c;
+  background-color: rgb(40, 39, 72);
   box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.3) inset;
   color: #FFF;
   height: 40px;
@@ -369,7 +369,7 @@ ol {
 /* - user-menu
 -------------------------------------------------------------------------- */
 .panel.user-menu {
-  background-color: #fa8f1c;
+  background-color: rgb(40, 39, 72);
   color: #fff;
   font-size: 12px;
   font-size: 0.875rem;
@@ -384,10 +384,10 @@ ol {
   font-size: 1.25rem;
 }
 .panel.user-menu h2 {
-  background: rgba(240, 130, 10, 0.3);
+  background: rgba(10, 4, 40, 0.3);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-  box-shadow: 0 20px 40px -10px rgba(160, 70, 0, 0.3) inset;
+  box-shadow: 0 20px 40px -10px rgba(255, 255, 255, 0.3) inset;
   font-size: 14px;
   font-size: 0.875rem;
   margin: 0;
@@ -515,7 +515,7 @@ text-decoration: none;
 }
 
 #add-site {
-  background: #fa8f1c url(../img/orange-bg.png);
+  background: rgb(40, 39, 72) url(../img/orange-bg.png);
   padding-top: 4.92308rem;
 }
 
@@ -1123,7 +1123,7 @@ button {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    background: #fa8f1c;
+    background: rgb(40, 39, 72);
 }
 #app-dialog .modalHeader  {
     padding: 10px;
