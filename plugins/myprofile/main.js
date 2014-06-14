@@ -98,8 +98,7 @@ define(templates, function (myprofileTpl) {
 
             var ft = new FileTransfer();
             ft.upload(imageURI,
-                      encodeURI('http://192.168.1.33/moodle26/local/mypicturews/prueba.php'),
-                     // encodeURI(MM.config.current_site.siteurl + '/local/myprofilews/prueba.php'),
+                      encodeURI(MM.config.current_site.siteurl + '/local/myprofilemmws/uploadpicture.php'),
                       MM.plugins.myprofile.success_upload,
                       MM.plugins.myprofile.fail_upload,
                       options,
