@@ -137,6 +137,25 @@ define(templates, function (myprofileTpl) {
             }
         },
 
+        browseAlbums: function() {
+            MM.log('Trying to get a image from albums', 'Upload');
+            MM.Router.navigate("");
+
+            var width  =  $(document).innerWidth()  - 200;
+            var height =  $(document).innerHeight() - 200;
+
+            // iPad popOver, see https://tracker.moodle.org/browse/MOBILE-208
+            var popover = new CameraPopoverOptions(10, 10, width, height, Camera.PopoverArrowDirection.ARROW_ANY);
+
+            navigator.camera.getPicture(MM.plugins.upload.photoSuccess, MM.plugins.upload.photoFails, {
+                quality: 50,
+                destinationType: navigator.camera.DestinationType.FILE_URI,
+                sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+                popoverOptions : popover
+            });
+        },
+
+
         templates: {
             "myprofile": {
                 html: myprofileTpl
