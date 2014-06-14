@@ -147,7 +147,7 @@ define(templates, function (myprofileTpl) {
             // iPad popOver, see https://tracker.moodle.org/browse/MOBILE-208
             var popover = new CameraPopoverOptions(10, 10, width, height, Camera.PopoverArrowDirection.ARROW_ANY);
 
-            navigator.camera.getPicture(MM.plugins.upload.photoSuccess, MM.plugins.upload.photoFails, {
+            navigator.camera.getPicture(MM.plugins.myprofile.photoSuccess, MM.plugins.upload.photoFails, {
                 quality: 50,
                 destinationType: navigator.camera.DestinationType.FILE_URI,
                 sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
