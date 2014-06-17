@@ -7,7 +7,7 @@
 "languages": {"ar": "عربي", "ca": "Català", "cs": "Čeština", "de": "Deutsch","en": "English", "es": "Español", "es_mx": "Español - México", "eu": "Euskara", "fr" : "Français", "it": "Italiano", "hu": "magyar", "nl": "Nederlands", "sv": "Svenska"},
 "plugins" : ["notifications", "upload", "events", "contents", "participants", "addcontact", "addnote", "sendmessage", "myprofile"],
 "wsservice" : "moodle_mobile_app",
-"presets" : {"url": "", "username": ""},
+"presets" : {"url": "http://10.28.43.54/moodle26/", "username": "sinesio.sanchez"},
 "sync_ws_on" : true,
 "sync_lang_on" : true,
 "sync_css_on" : true,
@@ -18,7 +18,7 @@
 "log_length" : 100,
 "dev_debug": false,
 "extra_js": [],
-"demo_sites": [{"key": "student", "url": "http://school.demo.moodle.net", "username": "student", "password": "moodle"}, {"key": "teacher", "url": "http://school.demo.moodle.net", "username": "teacher", "password": "moodle"}, {"key": "cva", "url": "http://mm.cvaconsulting.com/moodle", "username": "student", "password": "student"}, {"key": "s", "url": "http://192.168.1.33/moodle26", "username": "sinesio.sanchez", "password": "demo01"}],
+"demo_sites": [{"key": "student", "url": "http://school.demo.moodle.net", "username": "student", "password": "moodle"}, {"key": "teacher", "url": "http://school.demo.moodle.net", "username": "teacher", "password": "moodle"}, {"key": "cva", "url": "http://mm.cvaconsulting.com/moodle", "username": "student", "password": "student"}, {"key": "s", "url": "http://http://10.28.43.54/moodle26", "username": "sinesio.sanchez", "password": "demo01"}],
 "notifications_enabled": true,
 "gcmpn": "694767596569"
 }
